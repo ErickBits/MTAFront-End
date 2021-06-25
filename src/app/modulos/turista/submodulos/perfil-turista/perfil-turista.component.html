@@ -1,0 +1,46 @@
+<div class="row">
+	<div class="general-container col-lg-12 ">
+
+		<div class="user-card col-lg-12" *ngIf="user">
+			<div class="row">
+				<div class="user-avatar col-lg-4">
+					<img src="{{ url + 'get-image-user/' + user.image }}" *ngIf="user.image" alt="Card image" />
+					<img src="assets/images/usuario.png" *ngIf="!user.image" alt="Card image" />
+          <div class="row" *ngIf=" user._id != identity._id">
+						<div class="col-lg-6 derecha follow-buttons">
+							<button class="botonSeguir" *ngIf="!following" (click)="followUser(user._id)">
+								<span class="fas fa-plus"></span>
+								Fichar
+							</button>
+							<button class="botonNoSeguir" *ngIf="following" (click)="deleteFollowUser(user._id)">
+								<span class="fas fa-check"></span>
+								Fichado
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="user-data col-lg-7">
+					<h4><span style="color: black;">Nombre Completo: </span>{{user.name + ' ' +user.surname}}</h4>
+					<h5><span style="color: black;">Nombre De Usuario: </span>{{user.nick}}</h5>
+					<h5><span style="color: black;">Rol: </span>{{user.role}}</h5>
+					<br>
+					<div class="user-status">
+						<p class="lead"><em>{{user.status}}</em></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="secction-user" class="publications" *ngIf="user">
+			<div *ngIf="section == 'publications'">
+				<app-publicaciones-turista [user_id]="user._id"></app-publicaciones-turista>
+			</div>
+			<div *ngIf="section == 'followings'">
+				<app-fichados-turista [user_id]="user._id"></app-fichados-turista>
+			</div>
+		</div>
+
+	</div>
+
+	
+</div>

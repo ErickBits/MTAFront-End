@@ -1,0 +1,120 @@
+
+
+ <div class="cont">
+  <div class="form sign-in">
+    <h2>Iniciar Sesión</h2>
+
+    <!-- Validaciones Login -->
+    <div class="alert alert-dismissible alert-success" *ngIf="status == 'success'">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      Login correcto!!
+    </div>
+    <div class="alert alert-dismissible alert-danger" *ngIf="status == 'error'">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      El login no ha podido completarse, comprueba tu email y/o password
+    </div>
+
+    <!-- Formulario Login -->
+    <form #loginForm="ngForm" (ngSubmit)='onSubmit(loginForm)'>      
+      <!-- campo email -->
+      <label>
+        <span>Email</span>
+        <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email" #email="ngModel" [(ngModel)]="user.email" required />
+      </label>
+      <span *ngIf="!email.valid && email.touched" class="text-danger">
+        El email es obligatorio!!
+      </span>
+
+      <!-- campo password -->
+      <label>
+        <span>Password</span>
+        <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" required />
+      </label>
+      <span *ngIf="!password.valid && password.touched" class="text-danger">
+        La contraseña es obligatoria!!
+      </span>
+
+      <!-- Demas botones -->
+      <button type="submit" value="Enviar" [disabled]="!loginForm.form.valid" class="submit">Entrar</button>
+    </form>
+  </div>
+  <!-- Registrar -->
+  <div class="sub-cont">
+    <div class="img">
+      <div class="img__text m--up">
+        <h2>Bienvenido</h2>
+        <p>Este es un nuevo paso para mostrar todas tus habilidades de guia turistico!</p>
+        <p>Si eres nuevo, presiona el boton de abajo y registrate!</p>
+      </div>
+      <div class="img__text m--in">
+        <h2>¿Ya tienes cuenta?</h2>
+        <p>Si ya estas listo para empezar, presiona el boton de abajo y comienza una aventura!</p>
+      </div>
+      <div class="img__btn">
+        <span class="m--up">Registro</span>
+        <span class="m--in">Iniciar</span>
+      </div>
+    </div>
+
+    <!-- Formulario de registrar -->
+    <div class="form sign-up">
+      <h2>Registrate</h2>
+
+      <!--------------------->
+
+      <div class="alert alert-dismissible alert-success" *ngIf="statusR == 'success'">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        Registro completado correctamente, <a [routerLink]="['/login']">Identifícate aquí</a>
+      </div>
+      <div class="alert alert-dismissible alert-danger" *ngIf="statusR == 'error'">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        El registro no ha podido completarse. {{messageR}}
+      </div>
+
+      <form #registerForm="ngForm" (ngSubmit)='onSubmitR(registerForm)' class="col-lg-12">
+          <label>
+            <span>Nombres</span>
+            <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="user.name" required />
+          </label>
+          <span *ngIf="!nombre.valid && nombre.touched" class="text-danger">
+            El nombre es obligatorio!!
+          </span>
+
+          <label>
+            <span>Apellidos</span>
+            <input type="text" name="surname" #surname="ngModel" [(ngModel)]="user.surname" required />
+          </label>
+          <span *ngIf="!surname.valid && surname.touched" class="text-danger">
+            Los apellidos son obligatorios!!
+          </span>
+
+          <label>
+            <span>Nombre de usuario</span>
+            <input type="text" name="nick" #nick="ngModel" [(ngModel)]="user.nick" required />
+          </label>
+          <span *ngIf="!nick.valid && nick.touched" class="text-danger">
+            El nick es obligatorio!!
+          </span>
+
+          <label>
+            <span>Correo</span>
+            <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="correo" #correo="ngModel" [(ngModel)]="user.email" required />
+          </label>
+          <span *ngIf="!correo.valid && correo.touched" class="text-danger">
+            El correo es obligatorio!!
+          </span>
+
+          <label>
+            <span>Contraseña</span>
+            <input type="password" name="pass" #pass="ngModel" [(ngModel)]="user.password" required />
+          </label>
+          <span *ngIf="!pass.valid && pass.touched" class="text-danger">
+            La contraseña es obligatoria!!
+          </span>
+          <button type="submit" value="Enviar" class="submit" [disabled]="!registerForm.form.valid">Registrar</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+

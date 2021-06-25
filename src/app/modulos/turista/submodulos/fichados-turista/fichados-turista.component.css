@@ -1,0 +1,51 @@
+.botonVerMas{
+    padding: 6px 28px;
+    border: none;
+    border-radius: 20px;
+    background: linear-gradient(45deg, #ff6046, #ffffff);
+}
+
+.imagenUsuario img{
+    height: 124px;
+}
+
+.card {
+	margin-bottom: 20px;
+}
+
+.card-img{
+	width: 80%; 
+	display: block;
+	height: 150px; 
+	margin-bottom: 5%;
+	margin-top: 5%;
+	border-radius: 50%;
+}
+
+.no-image{
+	filter: contrast(5) !important;
+}
+
+.follow-buttons{
+	text-align: right;
+}
+
+.botonSeguir{
+    padding: 4px 7px;
+    border: none;
+    border-radius: 8px;
+    color: rgb(14 14 14);
+    background: #efefef;
+}
+
+.botonNoSeguir{
+    padding: 4px 7px;
+    border: none;
+    border-radius: 8px;
+    color: rgb(14 14 14);
+    background: #efefef;
+}
+
+.user-nick{
+	color: #b9b6bd !important;
+}

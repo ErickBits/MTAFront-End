@@ -1,0 +1,204 @@
+<div class="page-wrapper chiller-theme toggled">
+  <a id="show-sidebar" class="btn btn-sm btn-dark">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <a>MTA | TURISTA</a>
+        <div id="close-sidebar">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+      <div class="sidebar-header" *ngIf='identity'>
+        <div class="user-pic">
+          <img class="img-responsive img-rounded" src="{{ url + 'get-image-user/' + identity.image }}" *ngIf="identity && identity.image" alt="Card image" />
+					<img class="img-responsive img-rounded" src="assets/images/usuario.png" *ngIf="!identity.image" alt="Card image" />	
+        </div>
+        <div class="user-info">
+          <span class="user-name">{{identity.name}}</span>
+          <span class="user-role">	{{identity.role}}</span>
+          <span class="user-status">
+            <i class="fa fa-circle"></i>
+            <span>Online</span>
+          </span>
+        </div>
+      </div>
+      <!-- sidebar-search  -->
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu">
+            <span>General</span>
+          </li>
+          <li>
+            <a [routerLink]="['/turista/home']">
+              <i class="fas fa-home"></i>
+              <span>Inicio</span>
+              <span class="badge badge-pill badge-danger">Nuevo Lugares</span>
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a style="cursor: pointer;">
+              <i class="fas fa-user-circle"></i>
+              <span>Mi cuenta</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a [routerLink]="['/turista/perfil', identity._id]">Perfil
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/turista/editarPerfil']" >Mis datos</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="header-menu">
+            <span>Usuarios</span>
+          </li>
+          <li>
+            <a style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#publicacionesOffcanvas" aria-controls="offcanvasRight">
+              <i class="fa fa-book"></i>
+              <span>Novedades</span>
+              <span class="badge badge-pill badge-warning">{{totalPublicaciones}}</span>
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/turista/perfiles']">
+              <i class="fa fa-users"></i>
+              <span>Perfiles</span>
+              <span class="badge badge-pill badge-info">Nuevos</span>
+            </a>
+          </li>
+          <li class="header-menu">
+            <span>Mensajes</span>
+          </li>
+          <li>
+            <a [routerLink]="['/turista/mensajesRecibidos/1']">
+              <i class="fa fa-envelope-open"></i>
+              <span>mensajes recibidos</span>
+              <span class="badge badge-pill badge-success">{{totalMensajesRecibidos}}</span>
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/turista/mensajesEnviados/1']">
+              <i class="fa fa-comments"></i>
+              <span>mensajes enviados</span>
+              <span class="badge badge-pill badge-success">{{totalMensajes}}</span>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+              <i class="fa fa-envelope"></i>
+              <span>enviar mensaje</span>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+    <div class="sidebar-footer">
+      <a style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#publicacionesOffcanvas" aria-controls="offcanvasRight">
+        <i class="fa fa-bell"></i>
+        <span class="badge badge-pill badge-warning notification">{{totalPublicaciones}}</span>
+      </a>
+      <a [routerLink]="['/turista/mensajesRecibidos/1']">
+        <i class="fa fa-envelope"></i>
+        <span class="badge badge-pill badge-success notification">{{totalMensajesRecibidos}}</span>
+      </a>
+      <a [routerLink]="['/turista/perfil', identity._id]">
+        <i class="fa fa-cog"></i>
+        <span class="badge-sonar"></span>
+      </a>
+      <a (click)="logout()">
+        <i class="fa fa-power-off"></i>
+      </a>
+    </div>
+  </nav>
+
+  <!-- off canvas de prueba para mensajes recibidos -->
+
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="perfilesOffcanvas" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel">Novedades</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+  </div>
+</div>
+  <!-- offcanvas de enviar mensaje -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h5 id="offcanvasRightLabel">Enviar Mensaje</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <!-- enviar mensaje -->
+      <div class="section-header">
+        <h1>{{title}}</h1>
+      </div>
+    
+      <!-- FIN Sección de Alertas -->
+    
+      <!-- formulario envío mensajes -->
+      <form #formAdd="ngForm" (ngSubmit)=' onSubmitEnviar(formAdd);'>
+        <p>
+          <label>Para:</label>
+          <select name="receiver" #text="ngModel" [(ngModel)]="messageEnviar.receiver" class="form-control" required *ngIf=" followsEnviar">
+            <option *ngFor="let follow of followsEnviar" value="{{follow.followed._id}}">
+              {{follow.followed.name + ' ' +  follow.followed.surname + ' (' + follow.followed.nick + ')'}}
+          </select>
+          
+        </p>
+    
+        <p>
+          <label>Mensaje:</label>
+          <textarea name="text" #text="ngModel" [(ngModel)]="messageEnviar.text" class="form-control" required></textarea>
+          <span *ngIf="!text.valid && text.touched" class="text-danger">
+            El mensaje es obligatorio!!
+          </span>
+        </p>
+    
+        <div class="derecha">
+          <input type="submit" value="Enviar" class="btn btn-success" [disabled]="!formAdd.form.valid" />
+        </div>
+      </form>
+      <!-- fin de enviar mensaje -->
+    </div>
+  </div>
+
+  <!-- offcanvas para ver las publicaciones -->
+
+  <div style="width: 27%;" class="offcanvas offcanvas-end" tabindex="-1" id="publicacionesOffcanvas" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h3 id="offcanvasRightLabel">Novedades</h3>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <app-timeline-turista></app-timeline-turista>
+    </div>
+  </div>
+  <!-- fin de publicaciones -->
+
+  <!-- sidebar-wrapper  -->
+  <main class="page-content">
+    <div class="container">
+     <router-outlet></router-outlet>
+      <footer class="text-center mt-5">
+        <div class="mb-2">
+          <small>
+            © 2021 Todos los derechos reservados a MTA
+          </small>
+        </div>
+      </footer>
+
+    </div>
+
+  </main>
+  <!-- page-content" -->
+</div>
+<!-- page-wrapper -->

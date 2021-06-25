@@ -1,0 +1,37 @@
+<div class="card border-primary mb-3 text-center">	
+	<div class="card-header">
+		<h3 class="ml-5">Ficha Técnica</h3>
+	</div>
+	<div class="card-body">
+		<h4>Usuario</h4>
+		<h6 class="card-title">{{identity.nick}}</h6>
+		<h4>Perfil</h4>
+		<a [routerLink]="['/admin/perfil', identity._id]">
+			<h6 class="text-dark">{{identity.name +' '+ identity.surname}}</h6>
+		</a>
+	</div>
+	<div class="card-body">
+		<h6 class="card-title">{{identity.role}}</h6>
+		<img class="card-img" src="{{ url + 'get-image-user/' + identity.image }}" *ngIf="identity.image" alt="Card image" />
+		<img class="card-img no-image" src="assets/images/usuario.png" *ngIf="!identity.image" alt="Card image" />
+		
+	</div>
+
+	<div class="row" *ngIf="my_stats">
+		<div class="col-lg-12">
+			<div class="stats col-lg-6">
+				<a [routerLink]="['/admin/perfil', identity._id, 'followings']">
+					<span>Fichados</span> 
+					<span class="text-light">{{my_stats.following}}</span>
+				</a>
+			</div>
+			<div class="stats col-lg-6">
+				<a [routerLink]="['/admin/perfil', identity._id, 'publications']">
+					<span>Publicaciones</span> 
+					<span class="text-light">{{my_stats.publications}}</span>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+

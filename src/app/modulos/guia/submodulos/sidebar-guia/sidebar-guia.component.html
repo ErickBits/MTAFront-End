@@ -1,0 +1,56 @@
+
+
+<!-- Formulario de PUBLICACIONES -->
+<div class="card border-primary">
+	<h3 class="card-header text-center">Publica algo</h3>
+	<div class="card-body">
+
+		<!-- Resultado del envío del FORMULARIO -->
+		<div class="alert alert-dismissible alert-danger" *ngIf="status == 'error'">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			Algo no ha salido bien
+		</div>
+		<!-- FIN Resultado del envío del FORMULARIO -->
+
+		<form #newPubForm="ngForm" (ngSubmit)=' onSubmit(newPubForm, $event); '>
+			<p>
+				<label>Nombre del paquete:</label>
+				<input name="nombre" #nombre="ngModel" [(ngModel)]="publication.nombre" class="form-control" required>
+			</p>
+			<p>
+				<label>Lugar:</label>
+				<input name="lugar" #lugar="ngModel" [(ngModel)]="publication.lugar" class="form-control" required>
+			</p>
+			<p>
+				<label>Cantidad de personas:</label>
+				<input name="personas" #personas="ngModel" [(ngModel)]="publication.personas" class="form-control" required>
+			</p>
+			<p>
+				<label>Duracion:</label>
+				<input name="duracion" #duracion="ngModel" [(ngModel)]="publication.duracion" class="form-control" required>
+			</p>
+			<p>
+				<label>Publica un nuevo paquete</label>
+				<textarea name="text" #text="ngModel" [(ngModel)]="publication.text" class="form-control" required></textarea>
+				<span *ngIf="!text.valid && text.touched" class="text-danger">
+					El texto de la publicación es obligatorio!!
+				</span>
+			</p>
+			
+			
+			<div class="drag-drop">
+        <input type="file" (change)="fileChangeEvent($event)" multiple="multiple" id="photo" />
+        <span class="fa-stack fa-2x">
+        <i class="fa fa-cloud fa-stack-2x bottom pulsating"></i>
+        <i class="fa fa-circle fa-stack-1x top medium"></i>
+        <i class="fa fa-arrow-circle-up fa-stack-1x top"></i>
+        </span>
+        <span class="desc">Pulse aquí para añadir archivos</span>
+      </div>
+			<div class="derecha">
+				<input type="submit" value="Publicar" class="botonPublicar" [disabled]="!newPubForm.form.valid" />
+			</div>
+		</form>
+	</div>
+</div>
+

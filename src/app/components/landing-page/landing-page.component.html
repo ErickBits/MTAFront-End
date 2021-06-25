@@ -1,0 +1,64 @@
+<header class="showcase">
+  <div class="content">
+    <img src="../../../assets/images/logoMta.png" class="logo" alt="Traversy Media">
+    <div class="title">
+      BIENVENIDO A MTA
+    </div>
+    <div class="text">
+      CONOCE, VIAJA, TRABAJA, GENERA NUEVAS EXPERIENCIAS
+    </div>
+  </div>
+</header>
+
+<!-- Services -->
+
+<!-- About -->
+<section class="about bg-light">
+  <div class="about_titulo">
+    <h1>Escoge un rol</h1>
+  </div>
+  <hr class="about_line">
+  <div class="center">
+    <div class="card">
+      <div class="additional">
+        <div class="user-card">
+          <div class="level center">
+            Guia
+          </div>
+          <div class="avatar"></div>
+        </div>
+        <div class="more-info">
+          <button [routerLink]="['/inicioGuia']">Empezar</button>
+        </div>
+      </div> 
+      <div class="general">
+        <h1 class="general_titulo">¿Qué hace?</h1>
+        <p class="general_parrafo">Cómo turista podrás acceder a casi todos las funcionalidades del sitio, así como comunicarse con turistas y prestar tus servicios.</p>
+      </div>
+    </div>
+  
+    <div class="card green">
+      <div class="additional">
+        <div class="user-card">
+          <div class="level center">
+            Turista
+          </div>
+          
+        </div>
+        <div class="more-info">
+          <button [routerLink]="['/inicioTurista']">Empezar</button>
+        </div>
+        <div class="avatarTurista"></div>
+      </div>
+      <div class="general">
+        <h1 class="general_titulo">¿Qué hace?
+        </h1>
+        <p>Cómo turista podras navegar por la mayoria de paginas del sitio, podras comunicarte con otros guias, acceder a paquetes, publicar comentarios, etc.</p>
+      </div>
+    </div>
+</div>
+</section>
+
+<footer class="center bg-dark">
+  <p>MTA &copy; 2021</p>
+</footer>
